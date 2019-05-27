@@ -11,7 +11,7 @@ from .exceptions import BinanceAPIException, BinanceRequestException, BinanceWit
 
 class Client(object):
 
-    API_URL = 'https://www.bitrue.com'
+    API_URL = 'https://www.bitrue.com/api'
     WITHDRAW_API_URL = 'https://api.binance.com/wapi'
     WEBSITE_URL = 'https://www.binance.com'
     PUBLIC_API_VERSION = 'v1'
@@ -201,6 +201,7 @@ class Client(object):
         try:
             return response.json()
         except ValueError:
+
             raise BinanceRequestException('Invalid Response: %s' % response.text)
 
     def _get(self, path, signed=False, version=PUBLIC_API_VERSION, **kwargs):
@@ -217,7 +218,7 @@ class Client(object):
 
     # Exchange Endpoints
 
-    def get_products(self):
+    def get_products(self): #DELETE
         """Return list of products currently listed on Binance
 
         Use get_exchange_info() call instead
@@ -231,63 +232,59 @@ class Client(object):
         products = self._request_website('get', 'exchange/public/product')
         return products
 
-    def get_exchange_info(self):
+    def get_exchange_info(self): #PRODREADY
         """Return rate limits and list of symbols
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#exchange-information-some-fields-not-support-only-reserved
 
         :returns: list - List of product dictionaries
 
         .. code-block:: python
 
-            {
-                "timezone": "UTC",
-                "serverTime": 1508631584636,
-                "rateLimits": [
-                    {
-                        "rateLimitType": "REQUESTS",
-                        "interval": "MINUTE",
-                        "limit": 1200
+                {
+                  "timezone": "UTC",
+                  "serverTime": 1508631584636,
+                  "rateLimits": [{
+                      "rateLimitType": "REQUESTS_WEIGHT",
+                      "interval": "MINUTE",
+                      "limit": 1200
                     },
                     {
-                        "rateLimitType": "ORDERS",
-                        "interval": "SECOND",
-                        "limit": 10
+                      "rateLimitType": "ORDERS",
+                      "interval": "SECOND",
+                      "limit": 10
                     },
                     {
-                        "rateLimitType": "ORDERS",
-                        "interval": "DAY",
-                        "limit": 100000
+                      "rateLimitType": "ORDERS",
+                      "interval": "DAY",
+                      "limit": 100000
                     }
-                ],
-                "exchangeFilters": [],
-                "symbols": [
-                    {
-                        "symbol": "ETHBTC",
-                        "status": "TRADING",
-                        "baseAsset": "ETH",
-                        "baseAssetPrecision": 8,
-                        "quoteAsset": "BTC",
-                        "quotePrecision": 8,
-                        "orderTypes": ["LIMIT", "MARKET"],
-                        "icebergAllowed": false,
-                        "filters": [
-                            {
-                                "filterType": "PRICE_FILTER",
-                                "minPrice": "0.00000100",
-                                "maxPrice": "100000.00000000",
-                                "tickSize": "0.00000100"
-                            }, {
-                                "filterType": "LOT_SIZE",
-                                "minQty": "0.00100000",
-                                "maxQty": "100000.00000000",
-                                "stepSize": "0.00100000"
-                            }, {
-                                "filterType": "MIN_NOTIONAL",
-                                "minNotional": "0.00100000"
-                            }
-                        ]
-                    }
-                ]
-            }
+                  ],
+                  "exchangeFilters": [],
+                  "symbols": [{
+                    "symbol": "ETHBTC",
+                    "status": "TRADING",
+                    "baseAsset": "ETH",
+                    "baseAssetPrecision": 8,???
+                    "quoteAsset": "BTC",
+                    "quotePrecision": 8,
+                    "orderTypes": ["LIMIT", "MARKET"],
+                    "icebergAllowed": false,  ???
+                    "filters": [{   ??
+                      "filterType": "PRICE_FILTER", ??
+                      "minPrice": "0.00000100", ??
+                      "maxPrice": "100000.00000000", ??
+                      "tickSize": "0.00000100" ??
+                    }, {
+                      "filterType": "LOT_SIZE",
+                      "minQty": "0.00100000",
+                      "maxQty": "100000.00000000",
+                      "stepSize": "0.00100000"
+                    }, {
+                      "filterType": "MIN_NOTIONAL",
+                      "minNotional": "0.00100000"
+                    }]
+                  }]
+                }
 
         :raises: BinanceRequestException, BinanceAPIException
 
@@ -295,9 +292,9 @@ class Client(object):
 
         return self._get('exchangeInfo')
 
-    def get_symbol_info(self, symbol):
+    def get_symbol_info(self, symbol): #PRODREADY
         """Return information about a symbol
-
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#exchange-information-some-fields-not-support-only-reserved
         :param symbol: required e.g BNBBTC
         :type symbol: str
 
@@ -305,32 +302,23 @@ class Client(object):
 
         .. code-block:: python
 
-            {
-                "symbol": "ETHBTC",
-                "status": "TRADING",
-                "baseAsset": "ETH",
-                "baseAssetPrecision": 8,
-                "quoteAsset": "BTC",
-                "quotePrecision": 8,
-                "orderTypes": ["LIMIT", "MARKET"],
-                "icebergAllowed": false,
-                "filters": [
-                    {
-                        "filterType": "PRICE_FILTER",
-                        "minPrice": "0.00000100",
-                        "maxPrice": "100000.00000000",
-                        "tickSize": "0.00000100"
-                    }, {
-                        "filterType": "LOT_SIZE",
-                        "minQty": "0.00100000",
-                        "maxQty": "100000.00000000",
-                        "stepSize": "0.00100000"
-                    }, {
-                        "filterType": "MIN_NOTIONAL",
-                        "minNotional": "0.00100000"
-                    }
-                ]
-            }
+               {'baseAsset': 'xrp',
+                 'baseAssetPrecision': 1,
+                 'filters': [{'filterType': 'PRICE_FILTER',
+                              'maxPrice': '0.537810000000000000000',
+                              'minPrice': '0.041370000000000000000',
+                              'priceScale': 5},
+                             {'filterType': 'LOT_SIZE',
+                              'maxQty': '1410065408.0000000000000000',
+                              'minQty': '0.1000000000000000',
+                              'volumeScale': 1}],
+                 'icebergAllowed': False,
+                 'orderTypes': ['MARKET', 'LIMIT'],
+                 'quoteAsset': 'usdt',
+                 'quotePrecision': 5,
+                 'status': 'TRADING',
+                 'symbol': 'XRPUSDT'}
+
 
         :raises: BinanceRequestException, BinanceAPIException
 
@@ -346,11 +334,10 @@ class Client(object):
 
     # General Endpoints
 
-    def ping(self):
+    def ping(self): #PRODREADY
         """Test connectivity to the Rest API.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#test-connectivity
-
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#test-connectivity
         :returns: Empty array
 
         .. code-block:: python
@@ -362,10 +349,10 @@ class Client(object):
         """
         return self._get('ping')
 
-    def get_server_time(self):
+    def get_server_time(self): #PRODREADY
         """Test connectivity to the Rest API and get the current server time.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#check-server-time
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#check-server-time
 
         :returns: Current server time
 
@@ -382,70 +369,64 @@ class Client(object):
 
     # Market Data Endpoints
 
-    def get_all_tickers(self):
-        """Latest price for all symbols.
+    def get_ticker_price(self, symbol): #PRODREADY
+        """Latest price for one symbols.
 
-        https://www.binance.com/restapipub.html#symbols-price-ticker
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#symbol-price-ticker
 
-        :returns: List of market tickers
+        :returns: Price of a market ticker
 
         .. code-block:: python
 
             [
-                {
-                    "symbol": "LTCBTC",
-                    "price": "4.00000200"
-                },
-                {
-                    "symbol": "ETHBTC",
-                    "price": "0.07946600"
-                }
+                {'price': '0.40680', 'symbol': 'XRPUSDT'}
             ]
 
         :raises: BinanceRequestException, BinanceAPIException
 
         """
-        return self._get('ticker/allPrices')
+        params = {'symbol': symbol}
+        return self._get('ticker/price', data=params)
 
-    def get_orderbook_tickers(self):
-        """Best price/qty on the order book for all symbols.
+    # def get_orderbook_tickers(self):  #TBD
+    #     """Best price/qty on the order book for all symbols.
+    #
+    #     https://github.com/Bitrue-exchange/bitrue-official-api-docs#symbol-order-book-ticker
+    #
+    #     :returns: List of order book market entries
+    #
+    #     .. code-block:: python
+    #
+    #         [
+    #             {
+    #                 "symbol": "LTCBTC",
+    #                 "bidPrice": "4.00000000",
+    #                 "bidQty": "431.00000000",
+    #                 "askPrice": "4.00000200",
+    #                 "askQty": "9.00000000"
+    #             },
+    #             {
+    #                 "symbol": "ETHBTC",
+    #                 "bidPrice": "0.07946700",
+    #                 "bidQty": "9.00000000",
+    #                 "askPrice": "100000.00000000",
+    #                 "askQty": "1000.00000000"
+    #             }
+    #         ]
+    #
+    #     :raises: BinanceRequestException, BinanceAPIException
+    #
+    #     """
+    #     return self._get('ticker/allBookTickers')
 
-        https://www.binance.com/restapipub.html#symbols-order-book-ticker
-
-        :returns: List of order book market entries
-
-        .. code-block:: python
-
-            [
-                {
-                    "symbol": "LTCBTC",
-                    "bidPrice": "4.00000000",
-                    "bidQty": "431.00000000",
-                    "askPrice": "4.00000200",
-                    "askQty": "9.00000000"
-                },
-                {
-                    "symbol": "ETHBTC",
-                    "bidPrice": "0.07946700",
-                    "bidQty": "9.00000000",
-                    "askPrice": "100000.00000000",
-                    "askQty": "1000.00000000"
-                }
-            ]
-
-        :raises: BinanceRequestException, BinanceAPIException
-
-        """
-        return self._get('ticker/allBookTickers')
-
-    def get_order_book(self, **params):
+    def get_order_book(self, **params): #PRODREADY
         """Get the Order Book for the market
 
         https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#order-book
 
         :param symbol: required
         :type symbol: str
-        :param limit:  Default 100; max 1000
+        :param limit:  Default 100; 5, 10, 20, 50, 100
         :type limit: int
 
         :returns: API response
@@ -453,21 +434,21 @@ class Client(object):
         .. code-block:: python
 
             {
-                "lastUpdateId": 1027024,
-                "bids": [
-                    [
-                        "4.00000000",     # PRICE
-                        "431.00000000",   # QTY
-                        []                # Can be ignored
-                    ]
-                ],
-                "asks": [
-                    [
-                        "4.00000200",
-                        "12.00000000",
-                        []
-                    ]
+              "lastUpdateId": 1027024,
+              "bids": [
+                [
+                  "4.00000000",     // PRICE
+                  "431.00000000",   // QTY
+                  []                // Ignore.
                 ]
+              ],
+              "asks": [
+                [
+                  "4.00000200",
+                  "12.00000000",
+                  []
+                ]
+              ]
             }
 
         :raises: BinanceRequestException, BinanceAPIException
@@ -475,14 +456,14 @@ class Client(object):
         """
         return self._get('depth', data=params)
 
-    def get_recent_trades(self, **params):
+    def get_recent_trades(self, **params): #PRODREADY
         """Get recent trades (up to last 500).
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#recent-trades-list
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#recent-trades-list
 
         :param symbol: required
         :type symbol: str
-        :param limit:  Default 500; max 500.
+        :param limit:  Default 100; max 1000.
         :type limit: int
 
         :returns: API response
@@ -490,14 +471,14 @@ class Client(object):
         .. code-block:: python
 
             [
-                {
-                    "id": 28457,
-                    "price": "4.00000100",
-                    "qty": "12.00000000",
-                    "time": 1499865549590,
-                    "isBuyerMaker": true,
-                    "isBestMatch": true
-                }
+              {
+                "id": 28457,
+                "price": "4.00000100",
+                "qty": "12.00000000",
+                "time": 1499865549590,
+                "isBuyerMaker": true,
+                "isBestMatch": true  //预留
+              }
             ]
 
         :raises: BinanceRequestException, BinanceAPIException
@@ -505,14 +486,14 @@ class Client(object):
         """
         return self._get('trades', data=params)
 
-    def get_historical_trades(self, **params):
+    def get_historical_trades(self, **params): #PRODREADY
         """Get older trades.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#recent-trades-list
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#old-trade-lookup-market_data
 
         :param symbol: required
         :type symbol: str
-        :param limit:  Default 500; max 500.
+        :param limit:  Default 100; max 1000.
         :type limit: int
         :param fromId:  TradeId to fetch from. Default gets most recent trades.
         :type fromId: str
@@ -537,11 +518,11 @@ class Client(object):
         """
         return self._get('historicalTrades', data=params)
 
-    def get_aggregate_trades(self, **params):
+    def get_aggregate_trades(self, **params): #PRODREADY
         """Get compressed, aggregate trades. Trades that fill at the time,
         from the same order, with the same price will have the quantity aggregated.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#compressedaggregate-trades-list
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#compressedaggregate-trades-list
 
         :param symbol: required
         :type symbol: str
@@ -576,7 +557,7 @@ class Client(object):
         """
         return self._get('aggTrades', data=params)
 
-    def aggregate_trade_iter(self, symbol, start_str=None, last_id=None):
+    def aggregate_trade_iter(self, symbol, start_str=None, last_id=None): #TBD
         """Iterate over aggregate trade data from (start_time or last_id) to
         the end of the history so far.
 
@@ -600,7 +581,7 @@ class Client(object):
         return the first trade occurring later than this time.
         :type start_str: str|int
         :param last_id: aggregate trade ID of the last known aggregate trade.
-        Not a regular trade ID. See https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#compressedaggregate-trades-list.
+        Not a regular trade ID. See https://github.com/Bitrue-exchange/bitrue-official-api-docs#compressedaggregate-trades-list
 
         :returns: an iterator of JSON objects, one per trade. The format of
         each object is identical to Client.aggregate_trades().
@@ -888,10 +869,10 @@ class Client(object):
             if idx % 3 == 0:
                 time.sleep(1)
 
-    def get_ticker(self, **params):
+    def get_ticker_24h(self, **params):  #PRODREADY
         """24 hour price change statistics.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#24hr-ticker-price-change-statistics
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#24hr-ticker-price-change-statistics
 
         :param symbol:
         :type symbol: str
@@ -901,58 +882,63 @@ class Client(object):
         .. code-block:: python
 
             {
+              "symbol": "BNBBTC",
+              "priceChange": "-94.99999800",
+              "priceChangePercent": "-95.960",
+              "weightedAvgPrice": "0.29628482",
+              "prevClosePrice": "0.10002000",
+              "lastPrice": "4.00000200",
+              "lastQty": "200.00000000",
+              "bidPrice": "4.00000000",
+              "askPrice": "4.00000200",
+              "openPrice": "99.00000000",
+              "highPrice": "100.00000000",
+              "lowPrice": "0.10000000",
+              "volume": "8913.30000000",
+              "quoteVolume": "15.30000000",
+              "openTime": 1499783499040,
+              "closeTime": 1499869899040,
+              "firstId": 28385,   // First tradeId
+              "lastId": 28460,    // Last tradeId
+              "count": 76         // Trade count
+            }
+
+        OR
+
+        .. code-block:: python
+
+            [
+              {
+                "symbol": "BNBBTC",
                 "priceChange": "-94.99999800",
                 "priceChangePercent": "-95.960",
                 "weightedAvgPrice": "0.29628482",
                 "prevClosePrice": "0.10002000",
                 "lastPrice": "4.00000200",
+                "lastQty": "200.00000000",
                 "bidPrice": "4.00000000",
                 "askPrice": "4.00000200",
                 "openPrice": "99.00000000",
                 "highPrice": "100.00000000",
                 "lowPrice": "0.10000000",
                 "volume": "8913.30000000",
+                "quoteVolume": "15.30000000",
                 "openTime": 1499783499040,
                 "closeTime": 1499869899040,
-                "fristId": 28385,   # First tradeId
-                "lastId": 28460,    # Last tradeId
-                "count": 76         # Trade count
-            }
-
-        OR
-
-        .. code-block:: python
-
-            [
-                {
-                    "priceChange": "-94.99999800",
-                    "priceChangePercent": "-95.960",
-                    "weightedAvgPrice": "0.29628482",
-                    "prevClosePrice": "0.10002000",
-                    "lastPrice": "4.00000200",
-                    "bidPrice": "4.00000000",
-                    "askPrice": "4.00000200",
-                    "openPrice": "99.00000000",
-                    "highPrice": "100.00000000",
-                    "lowPrice": "0.10000000",
-                    "volume": "8913.30000000",
-                    "openTime": 1499783499040,
-                    "closeTime": 1499869899040,
-                    "fristId": 28385,   # First tradeId
-                    "lastId": 28460,    # Last tradeId
-                    "count": 76         # Trade count
-                }
+                "firstId": 28385,   // First tradeId
+                "lastId": 28460,    // Last tradeId
+                "count": 76         // Trade count
+              }
             ]
-
         :raises: BinanceRequestException, BinanceAPIException
 
         """
         return self._get('ticker/24hr', data=params)
 
-    def get_symbol_ticker(self, **params):
+    def get_symbol_ticker(self, **params): #PRODREADY
         """Latest price for a symbol or symbols.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#24hr-ticker-price-change-statistics
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#symbol-price-ticker
 
         :param symbol:
         :type symbol: str
@@ -962,34 +948,19 @@ class Client(object):
         .. code-block:: python
 
             {
-                "symbol": "LTCBTC",
-                "price": "4.00000200"
+              "symbol": "LTCBTC",
+              "price": "4.00000200"
             }
-
-        OR
-
-        .. code-block:: python
-
-            [
-                {
-                    "symbol": "LTCBTC",
-                    "price": "4.00000200"
-                },
-                {
-                    "symbol": "ETHBTC",
-                    "price": "0.07946600"
-                }
-            ]
 
         :raises: BinanceRequestException, BinanceAPIException
 
         """
         return self._get('ticker/price', data=params, version=self.PRIVATE_API_VERSION)
 
-    def get_orderbook_ticker(self, **params):
+    def get_orderbook_ticker(self, **params): #PRODREADY
         """Latest price for a symbol or symbols.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#symbol-order-book-ticker
+        https://github.com/Bitrue-exchange/bitrue-official-api-docs#symbol-order-book-ticker
 
         :param symbol:
         :type symbol: str
@@ -999,33 +970,13 @@ class Client(object):
         .. code-block:: python
 
             {
-                "symbol": "LTCBTC",
-                "bidPrice": "4.00000000",
-                "bidQty": "431.00000000",
-                "askPrice": "4.00000200",
-                "askQty": "9.00000000"
+              "symbol": "LTCBTC",
+              "bidPrice": "4.00000000",
+              "bidQty": "431.00000000",
+              "askPrice": "4.00000200",
+              "askQty": "9.00000000"
             }
 
-        OR
-
-        .. code-block:: python
-
-            [
-                {
-                    "symbol": "LTCBTC",
-                    "bidPrice": "4.00000000",
-                    "bidQty": "431.00000000",
-                    "askPrice": "4.00000200",
-                    "askQty": "9.00000000"
-                },
-                {
-                    "symbol": "ETHBTC",
-                    "bidPrice": "0.07946700",
-                    "bidQty": "9.00000000",
-                    "askPrice": "100000.00000000",
-                    "askQty": "1000.00000000"
-                }
-            ]
 
         :raises: BinanceRequestException, BinanceAPIException
 
@@ -1069,10 +1020,10 @@ class Client(object):
         .. code-block:: python
 
             {
-                "symbol":"LTCBTC",
-                "orderId": 1,
-                "clientOrderId": "myOrder1" # Will be newClientOrderId
-                "transactTime": 1499827319559
+              "symbol": "BTCUSDT",
+              "orderId": 28,
+              "clientOrderId": "6gCrw2kRUAF9CvJDGP16IP", **Reserved**
+              "transactTime": 1507725176595
             }
 
         Response RESULT:
