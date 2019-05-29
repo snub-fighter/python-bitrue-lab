@@ -1,52 +1,25 @@
-================================
-Welcome to python-binance v0.7.1
-================================
+==================================
+Welcome to python-bitrue-lab 0.0.1
+==================================
 
 Note
 ----
 
-I am working on a python3 version with async support to remove legacy dependencies and their related issues.
-
-I would appreciate if you could try out the `feature/asyncio <https://github.com/sammchardy/python-binance/tree/feature/asyncio>`_ branch and give your feedback.
 
 
-.. image:: https://img.shields.io/pypi/v/python-binance.svg
-    :target: https://pypi.python.org/pypi/python-binance
+This is an unofficial Python wrapper for the `Bitrue exchange REST API v1/ <https://github.com/Bitrue-exchange/bitrue-official-api-docs>`_. I am in no way affiliated with Bitrue, use at your own risk.
 
-.. image:: https://img.shields.io/pypi/l/python-binance.svg
-    :target: https://pypi.python.org/pypi/python-binance
+If you came here looking for the `Bitrue exchange <https://www.binance.com/?ref=10099792>`_ to purchase cryptocurrencies, then `go here <https://www.bitrue.com/activity/task/task-landing?inviteCode=EWHAHT>`_. If you want to automate interactions with Binance stick around.
 
-.. image:: https://img.shields.io/travis/sammchardy/python-binance.svg
-    :target: https://travis-ci.org/sammchardy/python-binance
-
-.. image:: https://img.shields.io/coveralls/sammchardy/python-binance.svg
-    :target: https://coveralls.io/github/sammchardy/python-binance
-
-.. image:: https://img.shields.io/pypi/wheel/python-binance.svg
-    :target: https://pypi.python.org/pypi/python-binance
-
-.. image:: https://img.shields.io/pypi/pyversions/python-binance.svg
-    :target: https://pypi.python.org/pypi/python-binance
-
-This is an unofficial Python wrapper for the `Binance exchange REST API v1/3 <https://github.com/binance-exchange/binance-official-api-docs>`_. I am in no way affiliated with Binance, use at your own risk.
-
-If you came here looking for the `Binance exchange <https://www.binance.com/?ref=10099792>`_ to purchase cryptocurrencies, then `go here <https://www.binance.com/?ref=10099792>`_. If you want to automate interactions with Binance stick around.
-
-If you're interested in Binance's new DEX Binance Chain see my `python-binance-chain library <https://github.com/sammchardy/python-binance-chain>`_
 
 Source code
-  https://github.com/sammchardy/python-binance
+  https://github.com/sammchardy/python-bitrue-lab
 
 Documentation
-  https://python-binance.readthedocs.io/en/latest/
+  https://python-bitrue.readthedocs.io/en/latest/  (pending release)
 
-Binance API Telegram
-  https://t.me/binance_api_english
-
-Blog with examples
-  https://sammchardy.github.io
-
-Make sure you update often and check the `Changelog <https://python-binance.readthedocs.io/en/latest/changelog.html>`_ for new features and bug fixes.
+Binance  Telegram
+  https://t.me/BitrueOfficial
 
 Features
 --------
@@ -61,21 +34,75 @@ Features
 - Withdraw functionality
 - Deposit addresses
 
+
+
+| Bitrue Official API | Status | python-bitrue |
+| ------------- | ------------- | ----- |
+| [General endpoints (PUBLIC)](https://github.com/Bitrue-exchange/bitrue-official-api-docs#general-endpoints)|	 | |
+| [Test connectivity](https://github.com/Bitrue-exchange/bitrue-official-api-docs#test-connectivity)	| complete | 			ping |
+| [Check server time]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#check-server-time)| complete | get_server_time |
+| [Exchange information]（Some fields not support. only reserved）	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#exchange-information-some-fields-not-support-only-reserved)	| complete | get_exchange_info |
+| [Symbol Info (From Exchange Info)]	| complete | get_symbol_info |
+| Market Data endpoints (PUBLIC)]| | |
+| [Order book]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#order-book)	| complete | get_order_book |
+| [Recent trades list]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#recent-trades-list)	| complete | get_recent_trades |
+| [Old trade lookup (MARKET_DATA)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#old-trade-lookup-market_data)	| complete | get_historical_trades |
+| [Compressed/Aggregate trades list]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#compressedaggregate-trades-list)	| complete | get_aggregate_trades |
+| | IN DEVELOPMENT | aggregate_trade_iter |
+| NOT AVAILABLE	| get_klines |
+| NOT AVAILABLE	| REQUIRES KLINES	| _get_earliest_valid_timestamp |
+| NOT AVAILABLE	| REQUIRES KLINES	| get_historical_klines |
+| NOT AVAILABLE	| REQUIRES KLINES	| get_historical_klines_generator |
+| [24hr ticker price change statistics]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#24hr-ticker-price-change-statistics)	| complete | get_ticker_24h |
+| [Symbol price ticker]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#symbol-price-ticker)	| complete | get_ticker_price |
+| [Symbol order book ticker]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#symbol-order-book-ticker) | complete | get_orderbook_ticker |
+| [Account endpoints (PRIVATE)] | | |
+| [New order (TRADE)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#new-order--trade) | complete | create_order |
+| | complete | order_limit |
+| | complete | order_limit_buy |
+| | complete | order_limit_sell |
+| | complete | order_market |
+| | complete | order_market_buy |
+| | complete | order_market_sell |
+| NOT AVAILABLE | complete | create_test_order |
+| [Query order (USER_DATA)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#query-order-user_data)  | complete | get_order |
+| [Cancel order (TRADE)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#cancel-order-trade)	 | complete | cancel_order |
+| [Current open orders (USER_DATA)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#current-open-orders-user_data) | complete | get_open_orders |
+| [All orders (USER_DATA)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#all-orders-user_data) | complete | get_all_orders |
+| [Account information (USER_DATA)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#account-information-user_data) | complete | get_account |
+| | complete | get_asset_balance
+| [Account trade list (USER_DATA)]	 (https://github.com/Bitrue-exchange/bitrue-official-api-docs#account-trade-list-user_data) | complete | get_my_trades |
+| NOT AVAILABLE	| complete | get_system_status |
+| NOT AVAILABLE	| complete | get_account_status |
+| NOT AVAILABLE	| complete | get_dust_log |
+| NOT AVAILABLE	| complete | get_trade_fee |
+| NOT AVAILABLE	| complete | get_asset_details |
+| NOT AVAILABLE	| complete | withdraw |
+| NOT AVAILABLE	| complete | get_deposit_history |
+| NOT AVAILABLE	| complete | get_withdraw_history |
+| NOT AVAILABLE	| complete | get_deposit_address |
+| NOT AVAILABLE	| complete | get_withdraw_fee |
+| NOT AVAILABLE	| complete | stream_get_listen_key |
+| NOT AVAILABLE	| complete | stream_keepalive |
+| NOT AVAILABLE	| complete | stream_close |
+
 Quick Start
 -----------
 
-`Register an account with Binance <https://www.binance.com/register.html?ref=10099792>`_.
+`Register an account with Binance <https://www.bitrue.com/activity/task/task-landing?inviteCode=EWHAHT>`_.
 
-`Generate an API Key <https://www.binance.com/userCenter/createApi.html>`_ and assign relevant permissions.
+`Generate an API Key <https://www.bitrue.com/account/api>`_ and assign relevant permissions.
 
 .. code:: bash
 
-    pip install python-binance
+    pip install python-bitrue (pending release)
 
 
 .. code:: python
 
-    from binance.client import Client
+    from bitrue.client import Client
+    api_key=''
+    api_secret=''
     client = Client(api_key, api_secret)
 
     # get market depth
@@ -83,7 +110,7 @@ Quick Start
 
     # place a test market buy order, to place an actual order use the create_order function
     order = client.create_test_order(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         side=Client.SIDE_BUY,
         type=Client.ORDER_TYPE_MARKET,
         quantity=100)
@@ -91,7 +118,7 @@ Quick Start
     # get all symbol prices
     prices = client.get_all_tickers()
 
-    # withdraw 100 ETH
+    # withdraw 1000 XRP
     # check docs for assumptions around withdrawals
     from binance.exceptions import BinanceAPIException, BinanceWithdrawException
     try:
@@ -115,18 +142,30 @@ Quick Start
     # get a deposit address for BTC
     address = client.get_deposit_address(asset='BTC')
 
-    # start aggregated trade websocket for BNBBTC
-    def process_message(msg):
-        print("message type: {}".format(msg['e']))
-        print(msg)
-        # do something
+    # Fetch balance of asset, create a sell order - subsequently cancel sell order using orderId
+    asset = test.get_asset_balance(asset='XRP')
+    asset_free = asset['free']
+    order = test.create_order(symbol='XRPUSDT',
+                            side=Client.SIDE_SELL,
+                            type=Client.ORDER_TYPE_LIMIT,
+                            quantity=int(float(asset_free)),
+                             price=4.01)
+    print(order)
+    orderId = order['orderId']
+    print('Order ID: ',orderId, 'sleeping for 10')
+    time.sleep(10)
+    pprint(test.cancel_order(symbol='XRPUSDT', orderId=orderId))
 
-    from binance.websockets import BinanceSocketManager
-    bm = BinanceSocketManager(client)
-    bm.start_aggtrade_socket('BNBBTC', process_message)
-    bm.start()
+    #check for open orders and format data for easy reading.
+    try:
+        open = test.get_open_orders(symbol='CSCXRP',orderId=orderId) #,orderId=orderId
+        filled = open[0]['executedQty']
+        total = open[0]['origQty']
+        print('Order status: ', float(filled), 'of',float(total))
+    except:
+        print('no orders open')
 
-    # get historical kline data from any date range
+    # get historical kline data from any date range - BITRUE CURRENTLY DOES NOT OFFER KLINE QUERIES VIA API
 
     # fetch 1 minute klines for the last day up until now
     klines = client.get_historical_klines("BNBBTC", Client.KLINE_INTERVAL_1MINUTE, "1 day ago UTC")

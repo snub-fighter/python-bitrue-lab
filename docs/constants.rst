@@ -1,7 +1,7 @@
-Binance Constants
+Bitrue Constants
 =================
 
-Binance requires specific string constants for Order Types, Order Side, Time in Force, Order response and Kline intervals these are found on `binance.client.Client`.
+Bitrue requires specific string constants for Order Types, Order Side, Time in Force, Order response and Kline intervals these are found on `bitrue.client.Client`.
 
 .. code:: python
 
@@ -61,7 +61,7 @@ Binance requires specific string constants for Order Types, Order Side, Time in 
     AGG_BEST_MATCH     = 'M'
 
 
-For Websocket Depth these are found on `binance.websockets.BinanceSocketManager`
+For Websocket Depth these are found on `bitrue.websockets.BitrueSocketManager`
 
 .. code:: python
 
@@ -69,11 +69,11 @@ For Websocket Depth these are found on `binance.websockets.BinanceSocketManager`
     WEBSOCKET_DEPTH_10 = '10'
     WEBSOCKET_DEPTH_20 = '20'
 
-To use in your code reference either binance.client.Client or binance.websockets.BinanceSocketManager
+To use in your code reference either bitrue.client.Client or binance.websockets.BitrueSocketManager
 
 .. code:: python
 
     from binance.client import Client
-    from binance.websockets import BinanceSocketManager
+    from binance.websockets import BitrueSocketManager
 
     side = Client.SIDE_BUY

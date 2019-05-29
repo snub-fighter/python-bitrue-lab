@@ -10,10 +10,10 @@ from twisted.internet import reactor, ssl
 from twisted.internet.protocol import ReconnectingClientFactory
 from twisted.internet.error import ReactorAlreadyRunning
 
-from binance.client import Client
+from bitrue.client import Client
 
 
-class BinanceClientProtocol(WebSocketClientProtocol):
+class BitrueClientProtocol(WebSocketClientProtocol):
 
     def __init__(self):
         super(WebSocketClientProtocol, self).__init__()
@@ -32,7 +32,7 @@ class BinanceClientProtocol(WebSocketClientProtocol):
                 self.factory.callback(payload_obj)
 
 
-class BinanceReconnectingClientFactory(ReconnectingClientFactory):
+class BitrueReconnectingClientFactory(ReconnectingClientFactory):
 
     # set initial delay to a short time
     initialDelay = 0.1
@@ -42,9 +42,9 @@ class BinanceReconnectingClientFactory(ReconnectingClientFactory):
     maxRetries = 5
 
 
-class BinanceClientFactory(WebSocketClientFactory, BinanceReconnectingClientFactory):
+class BitrueClientFactory(WebSocketClientFactory, BitrueReconnectingClientFactory):
 
-    protocol = BinanceClientProtocol
+    protocol = BitrueClientProtocol
     _reconnect_error_payload = {
         'e': 'error',
         'm': 'Max reconnect retries reached'
@@ -61,9 +61,9 @@ class BinanceClientFactory(WebSocketClientFactory, BinanceReconnectingClientFact
             self.callback(self._reconnect_error_payload)
 
 
-class BinanceSocketManager(threading.Thread):
+class BitrueSocketManager(threading.Thread):
 
-    STREAM_URL = 'wss://stream.binance.com:9443/'
+    STREAM_URL = 'wss://stream.Bitrue.com:9443/'
 
     WEBSOCKET_DEPTH_5 = '5'
     WEBSOCKET_DEPTH_10 = '10'
@@ -72,10 +72,10 @@ class BinanceSocketManager(threading.Thread):
     DEFAULT_USER_TIMEOUT = 30 * 60  # 30 minutes
 
     def __init__(self, client, user_timeout=DEFAULT_USER_TIMEOUT):
-        """Initialise the BinanceSocketManager
+        """Initialise the BitrueSocketManager
 
-        :param client: Binance API client
-        :type client: binance.Client
+        :param client: Bitrue API client
+        :type client: Bitrue.Client
         :param user_timeout: Custom websocket timeout
         :type user_timeout: int
 
@@ -93,8 +93,8 @@ class BinanceSocketManager(threading.Thread):
             return False
 
         factory_url = self.STREAM_URL + prefix + path
-        factory = BinanceClientFactory(factory_url)
-        factory.protocol = BinanceClientProtocol
+        factory = BitrueClientFactory(factory_url)
+        factory.protocol = BitrueClientProtocol
         factory.callback = callback
         factory.reconnect = True
         context_factory = ssl.ClientContextFactory()
@@ -105,7 +105,7 @@ class BinanceSocketManager(threading.Thread):
     def start_depth_socket(self, symbol, callback, depth=None):
         """Start a websocket for symbol market depth returning either a diff or a partial book
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#partial-book-depth-streams
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/web-socket-streams.md#partial-book-depth-streams
 
         :param symbol: required
         :type symbol: str
@@ -174,7 +174,7 @@ class BinanceSocketManager(threading.Thread):
     def start_kline_socket(self, symbol, callback, interval=Client.KLINE_INTERVAL_1MINUTE):
         """Start a websocket for symbol kline data
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#klinecandlestick-streams
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/web-socket-streams.md#klinecandlestick-streams
 
         :param symbol: required
         :type symbol: str
@@ -220,8 +220,8 @@ class BinanceSocketManager(threading.Thread):
     def start_miniticker_socket(self, callback, update_time=1000):
         """Start a miniticker websocket for all trades
 
-        This is not in the official Binance api docs, but this is what
-        feeds the right column on a ticker page on Binance.
+        This is not in the official Bitrue api docs, but this is what
+        feeds the right column on a ticker page on Bitrue.
 
         :param callback: callback function to handle messages
         :type callback: function
@@ -254,7 +254,7 @@ class BinanceSocketManager(threading.Thread):
     def start_trade_socket(self, symbol, callback):
         """Start a websocket for symbol trade data
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#trade-streams
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/web-socket-streams.md#trade-streams
 
         :param symbol: required
         :type symbol: str
@@ -287,7 +287,7 @@ class BinanceSocketManager(threading.Thread):
     def start_aggtrade_socket(self, symbol, callback):
         """Start a websocket for symbol trade data
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#aggregate-trade-streams
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/web-socket-streams.md#aggregate-trade-streams
 
         :param symbol: required
         :type symbol: str
@@ -320,7 +320,7 @@ class BinanceSocketManager(threading.Thread):
     def start_symbol_ticker_socket(self, symbol, callback):
         """Start a websocket for a symbol's ticker data
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#individual-symbol-ticker-streams
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/web-socket-streams.md#individual-symbol-ticker-streams
 
         :param symbol: required
         :type symbol: str
@@ -367,7 +367,7 @@ class BinanceSocketManager(threading.Thread):
 
         By default all markets are included in an array.
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md#all-market-tickers-stream
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/web-socket-streams.md#all-market-tickers-stream
 
         :param callback: callback function to handle messages
         :type callback: function
@@ -414,7 +414,7 @@ class BinanceSocketManager(threading.Thread):
 
         Combined stream events are wrapped as follows: {"stream":"<streamName>","data":<rawPayload>}
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/web-socket-streams.md
 
         :param streams: list of stream names in lower case
         :type streams: list
@@ -423,7 +423,7 @@ class BinanceSocketManager(threading.Thread):
 
         :returns: connection key string if successful, False otherwise
 
-        Message Format - see Binance API docs for all types
+        Message Format - see Bitrue API docs for all types
 
         """
         stream_path = 'streams={}'.format('/'.join(streams))
@@ -432,14 +432,14 @@ class BinanceSocketManager(threading.Thread):
     def start_user_socket(self, callback):
         """Start a websocket for user data
 
-        https://github.com/binance-exchange/binance-official-api-docs/blob/master/user-data-stream.md
+        https://github.com/Bitrue-exchange/Bitrue-official-api-docs/blob/master/user-data-stream.md
 
         :param callback: callback function to handle messages
         :type callback: function
 
         :returns: connection key string if successful, False otherwise
 
-        Message Format - see Binance API docs for all types
+        Message Format - see Bitrue API docs for all types
         """
         # Get the user listen key
         user_listen_key = self._client.stream_get_listen_key()

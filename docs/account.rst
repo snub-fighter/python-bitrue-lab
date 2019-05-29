@@ -7,9 +7,9 @@ Orders
 Order Validation
 ^^^^^^^^^^^^^^^^
 
-Binance has a number of rules around symbol pair orders with validation on minimum price, quantity and total order value.
+Bitrue has a number of rules around symbol pair orders with validation on minimum price, quantity and total order value.
 
-Read more about their specifics in the `Filters <https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#filters>`_
+Read more about their specifics in the `Filters <https://github.com/Bitrue-exchange/bitrue-official-api-docs#exchange-information-some-fields-not-support-only-reserved>`_
 section of the official API.
 
 It can be helpful to format the output using the following snippet
@@ -21,15 +21,15 @@ It can be helpful to format the output using the following snippet
     amt_str = "{:0.0{}f}".format(amount, precision)
 
 
-`Fetch all orders <binance.html#binance.client.Client.get_all_orders>`_
+`Fetch all orders <bitrue.html#bitrue.client.Client.get_all_orders>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
-    orders = client.get_all_orders(symbol='BNBBTC', limit=10)
+    orders = client.get_all_orders(symbol='XRPUSDT', limit=10)
 
 
-`Place an order <binance.html#binance.client.Client.create_order>`_
+`Place an order <bitrue.html#bitrue.client.Client.create_order>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Place an order**
@@ -38,9 +38,9 @@ Use the `create_order` function to have full control over creating an order
 
 .. code:: python
 
-    from binance.enums import *
+    from bitrue.enums import *
     order = client.create_order(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         side=SIDE_BUY,
         type=ORDER_TYPE_LIMIT,
         timeInForce=TIME_IN_FORCE_GTC,
@@ -54,12 +54,12 @@ Use the helper functions to easily place a limit buy or sell order
 .. code:: python
 
     order = client.order_limit_buy(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         quantity=100,
         price='0.00001')
 
     order = client.order_limit_sell(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         quantity=100,
         price='0.00001')
 
@@ -71,96 +71,96 @@ Use the helper functions to easily place a market buy or sell order
 .. code:: python
 
     order = client.order_market_buy(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         quantity=100)
 
     order = client.order_market_sell(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         quantity=100)
 
-`Place a test order <binance.html#binance.client.Client.create_test_order>`_
+`Place a test order <bitrue.html#bitrue.client.Client.create_test_order>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Creates and validates a new order but does not send it into the exchange.
 
 .. code:: python
 
-    from binance.enums import *
+    from bitrue.enums import *
     order = client.create_test_order(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         side=SIDE_BUY,
         type=ORDER_TYPE_LIMIT,
         timeInForce=TIME_IN_FORCE_GTC,
         quantity=100,
         price='0.00001')
 
-`Check order status <binance.html#binance.client.Client.get_order>`_
+`Check order status <bitrue.html#bitrue.client.Client.get_order>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     order = client.get_order(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         orderId='orderId')
 
 
-`Cancel an order <binance.html#binance.client.Client.cancel_order>`_
+`Cancel an order <bitrue.html#bitrue.client.Client.cancel_order>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     result = client.cancel_order(
-        symbol='BNBBTC',
+        symbol='XRPUSDT',
         orderId='orderId')
 
 
-`Get all open orders <binance.html#binance.client.Client.get_open_orders>`_
+`Get all open orders <bitrue.html#bitrue.client.Client.get_open_orders>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
-    orders = client.get_open_orders(symbol='BNBBTC')
+    orders = client.get_open_orders(symbol='XRPUSDT')
 
-`Get all orders <binance.html#binance.client.Client.get_all_orders>`_
+`Get all orders <bitrue.html#bitrue.client.Client.get_all_orders>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
-    orders = client.get_all_orders(symbol='BNBBTC')
+    orders = client.get_all_orders(symbol='XRPUSDT')
 
 
 Account
 -------
 
-`Get account info <binance.html#binance.client.Client.get_account>`_
+`Get account info <bitrue.html#bitrue.client.Client.get_account>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     info = client.get_account()
 
-`Get asset balance <binance.html#binance.client.Client.get_asset_balance>`_
+`Get asset balance <bitrue.html#bitrue.client.Client.get_asset_balance>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     balance = client.get_asset_balance(asset='BTC')
 
-`Get account status <binance.html#binance.client.Client.get_account_status>`_
+`Get account status <bitrue.html#bitrue.client.Client.get_account_status>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     status = client.get_account_status()
 
-`Get trades <binance.html#binance.client.Client.get_my_trades>`_
+`Get trades <bitrue.html#bitrue.client.Client.get_my_trades>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
-    trades = client.get_my_trades(symbol='BNBBTC')
+    trades = client.get_my_trades(symbol='XRPUSDT')
 
-`Get trade fees <binance.html#binance.client.Client.get_trade_fee>`_
+`Get trade fees <bitrue.html#bitrue.client.Client.get_trade_fee>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
@@ -169,16 +169,16 @@ Account
     fees = client.get_trade_fee()
 
     # get fee for one symbol
-    fees = client.get_trade_fee(symbol='BNBBTC')
+    fees = client.get_trade_fee(symbol='XRPUSDT')
 
-`Get asset details <binance.html#binance.client.Client.get_asset_details>`_
+`Get asset details <bitrue.html#bitrue.client.Client.get_asset_details>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     details = client.get_asset_details()
 
-`Get dust log <binance.html#binance.client.Client.get_dust_log>`_
+`Get dust log <bitrue.html#bitrue.client.Client.get_dust_log>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python

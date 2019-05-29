@@ -4,27 +4,27 @@ Getting Started
 Installation
 ------------
 
-``python-binance`` is available on `PYPI <https://pypi.python.org/pypi/python-binance/>`_.
+``python-bitrue`` is available on `PYPI <https://pypi.python.org/pypi/python-bitrue/>`_.
 Install with ``pip``:
 
 .. code:: bash
 
-    pip install python-binance
+    pip install python-bitrue
 
 **Windows**
 
 If you see errors building Twisted indication Microsoft Visual C++ is required you may need to install the Visual C++ Build Tools
 refer to the `Python Wiki on Widows Compilers <https://wiki.python.org/moin/WindowsCompilers>`_ for your relevant version.
 
-Register on Binance
+Register on Bitrue
 -------------------
 
-Firstly `register an account with Binance <https://www.binance.com/register.html?ref=10099792>`_.
+Firstly `register an account with Bitrue <https://www.bitrue.com/activity/task/task-landing?inviteCode=EWHAHT>`_.
 
 Generate an API Key
 -------------------
 
-To use signed account methods you are required to `create an API Key  <https://www.binance.com/userCenter/createApi.html>`_.
+To use signed account methods you are required to `create an API Key  <https://www.bitrue.com/userCenter/createApi.html>`_.
 
 Initialise the client
 ---------------------
@@ -33,28 +33,28 @@ Pass your API Key and Secret
 
 .. code:: python
 
-    from binance.client import Client
+    from bitrue.client import Client
     client = Client(api_key, api_secret)
 
 Making API Calls
 ----------------
 
-Every method supports the passing of arbitrary parameters via keyword matching those in the`Binance API documentation <https://github.com/binance-exchange/binance-official-api-docs>`_.
+Every method supports the passing of arbitrary parameters via keyword matching those in the`Bitrue API documentation <https://github.com/bitrue-exchange/bitrue-official-api-docs>`_.
 These keyword arguments will be sent directly to the relevant endpoint.
 
-Each API method returns a dictionary of the JSON response as per the `Binance API documentation <https://github.com/binance-exchange/binance-official-api-docs>`_.
+Each API method returns a dictionary of the JSON response as per the `Bitrue API documentation <https://github.com/bitrue-exchange/bitrue-official-api-docs>`_.
 The docstring of each method in the code references the endpoint it implements.
 
-The Binance API documentation references a `timestamp` parameter, this is generated for you where required.
+The Bitrue API documentation references a `timestamp` parameter, this is generated for you where required.
 
-Some methods have a `recvWindow` parameter for `timing security, see Binance documentation <https://github.com/binance-exchange/binance-official-api-docs/blob/master/rest-api.md#timing-security>`_.
+Some methods have a `recvWindow` parameter for `timing security, see Bitrue documentation <https://github.com/bitrue-exchange/bitrue-official-api-docs/blob/master/rest-api.md#timing-security>`_.
 
 API Endpoints are rate limited by Binance at 20 requests per second, ask them if you require more.
 
 API Rate Limit
 --------------
 
-Check the `get_exchange_info() <binance.html#binance.client.Client.get_exchange_info>`_ call for up to date rate limits.
+Check the `get_exchange_info() <bitrue.html#bitrue.client.Client.get_exchange_info>`_ call for up to date rate limits.
 
 At the current time Binance rate limits are:
 
@@ -63,14 +63,14 @@ At the current time Binance rate limits are:
 - 100,000 orders per 24hrs
 
 Some calls have a higher weight than others especially if a call returns information about all symbols.
-Read the `official Binance documentation <https://github.com/binance-exchange/binance-official-api-docs`_ for specific information.
+Read the `official Binance documentation <https://github.com/bitrue-exchange/bitrue-official-api-docs`_ for specific information.
 
-.. image:: https://analytics-pixel.appspot.com/UA-111417213-1/github/python-binance/docs/overview?pixel
+.. image:: https://analytics-pixel.appspot.com/UA-111417213-1/github/python-bitrue/docs/overview?pixel
 
 Requests Settings
 -----------------
 
-`python-binance` uses the `requests <http://docs.python-requests.org/en/master/>`_ library.
+`python-bitrue` uses the `requests <http://docs.python-requests.org/en/master/>`_ library.
 
 You can set custom requests parameters for all API calls when creating the client.
 

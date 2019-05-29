@@ -9,7 +9,7 @@ Raised if a non JSON response is returned
 BinanceAPIException
 -------------------
 
-On an API call error a binance.exceptions.BinanceAPIException will be raised.
+On an API call error a bitrue.exceptions.BinanceAPIException will be raised.
 
 The exception provides access to the
 

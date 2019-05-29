@@ -1,21 +1,21 @@
 General Endpoints
 =================
 
-`Ping the server <binance.html#binance.client.Client.ping>`_
+`Ping the server <bitrue.html#bitrue.client.Client.ping>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     client.ping()
 
-`Get the server time <binance.html#binance.client.Client.get_server_time>`_
+`Get the server time <bitrue.html#bitrue.client.Client.get_server_time>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     time_res = client.get_server_time()
 
-`Get system status <binance.html#binance.client.Client.get_system_status>`_
+`Get system status <bitrue.html#bitrue.client.Client.get_system_status>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
@@ -31,14 +31,14 @@ Returns
         "msg": "normal"     # normal or System maintenance.
     }
 
-`Get Exchange Info <binance.html#binance.client.Client.get_exchange_info>`_
+`Get Exchange Info <bitrue.html#bitrue.client.Client.get_exchange_info>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     info = client.get_exchange_info()
 
-`Get Symbol Info <binance.html#binance.client.Client.get_symbol_info>`_
+`Get Symbol Info <bitrue.html#bitrue.client.Client.get_symbol_info>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Get the exchange info for a particular symbol
@@ -47,7 +47,7 @@ Get the exchange info for a particular symbol
 
     info = client.get_symbol_info('BNBBTC')
 
-`Get Current Products <binance.html#binance.client.Client.get_products>`_
+`Get Current Products <bitrue.html#bitrue.client.Client.get_products>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This call is deprecated, use the above Exchange Info call

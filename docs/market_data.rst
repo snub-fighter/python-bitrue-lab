@@ -2,35 +2,35 @@ Market Data Endpoints
 =====================
 
 
-`Get Market Depth <binance.html#binance.client.Client.get_order_book>`_
+`Get Market Depth <bitrue.html#bitrue.client.Client.get_order_book>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     depth = client.get_order_book(symbol='BNBBTC')
 
-`Get Recent Trades <binance.html#binance.client.Client.get_recent_trades>`_
+`Get Recent Trades <bitrue.html#bitrue.client.Client.get_recent_trades>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     trades = client.get_recent_trades(symbol='BNBBTC')
 
-`Get Historical Trades <binance.html#binance.client.Client.get_historical_trades>`_
+`Get Historical Trades <bitrue.html#bitrue.client.Client.get_historical_trades>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     trades = client.get_historical_trades(symbol='BNBBTC')
 
-`Get Aggregate Trades <binance.html#binance.client.Client.get_aggregate_trades>`_
+`Get Aggregate Trades <bitrue.html#bitrue.client.Client.get_aggregate_trades>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     trades = client.get_aggregate_trades(symbol='BNBBTC')
 
-`Aggregate Trade Iterator <binance.html#binance.client.Client.aggregate_trade_iter>`_
+`Aggregate Trade Iterator <bitrue.html#bitrue.client.Client.aggregate_trade_iter>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Iterate over aggregate trades for a symbol from a given date or a given order id.
@@ -54,14 +54,14 @@ Iterate over aggregate trades for a symbol from a given date or a given order id
     agg_trade_list = list(agg_trades)
 
 
-`Get Kline/Candlesticks <binance.html#binance.client.Client.get_klines>`_
+`Get Kline/Candlesticks <bitrue.html#bitrue.client.Client.get_klines>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     candles = client.get_klines(symbol='BNBBTC', interval=Client.KLINE_INTERVAL_30MINUTE)
 
-`Get Historical Kline/Candlesticks <binance.html#binance.client.Client.get_historical_klines>`_
+`Get Historical Kline/Candlesticks <bitrue.html#bitrue.client.Client.get_historical_klines>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Fetch klines for any date range and interval
@@ -78,7 +78,7 @@ Fetch klines for any date range and interval
     klines = client.get_historical_klines("NEOBTC", Client.KLINE_INTERVAL_1WEEK, "1 Jan, 2017")
 
 
-`Get Historical Kline/Candlesticks using a generator <binance.html#binance.client.Client.get_historical_klines_generator>`_
+`Get Historical Kline/Candlesticks using a generator <bitrue.html#bitrue.client.Client.get_historical_klines_generator>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Fetch klines using a generator
@@ -89,14 +89,14 @@ Fetch klines using a generator
         print(kline)
         # do something with the kline
 
-`Get 24hr Ticker <binance.html#binance.client.Client.get_ticker>`_
+`Get 24hr Ticker <bitrue.html#bitrue.client.Client.get_ticker>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: python
 
     tickers = client.get_ticker()
 
-`Get All Prices <binance.html#binance.client.Client.get_all_tickers>`_
+`Get All Prices <bitrue.html#bitrue.client.Client.get_all_tickers>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Get last price for all markets.
@@ -105,7 +105,7 @@ Get last price for all markets.
 
     prices = client.get_all_tickers()
 
-`Get Orderbook Tickers <binance.html#binance.client.Client.get_orderbook_tickers>`_
+`Get Orderbook Tickers <bitrue.html#bitrue.client.Client.get_orderbook_tickers>`_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Get first bid and ask entry in the order book for all markets.

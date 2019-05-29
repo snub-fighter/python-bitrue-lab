@@ -1,10 +1,10 @@
-Binance API
+Bitrue API
 ===========
 
 client module
 ----------------------
 
-.. automodule:: binance.client
+.. automodule:: bitrue.client
     :members:
     :undoc-members:
     :show-inheritance:
@@ -12,7 +12,7 @@ client module
 depthcache module
 --------------------------
 
-.. automodule:: binance.depthcache
+.. automodule:: bitrue.depthcache
     :members:
     :undoc-members:
     :show-inheritance:
@@ -20,7 +20,7 @@ depthcache module
 exceptions module
 --------------------------
 
-.. automodule:: binance.exceptions
+.. automodule:: bitrue.exceptions
     :members:
     :undoc-members:
     :show-inheritance:
@@ -28,7 +28,7 @@ exceptions module
 helpers module
 --------------------------
 
-.. automodule:: binance.helpers
+.. automodule:: bitrue.helpers
     :members:
     :undoc-members:
     :show-inheritance:
@@ -36,7 +36,7 @@ helpers module
 websockets module
 --------------------------
 
-.. automodule:: binance.websockets
+.. automodule:: bitrue.websockets
     :members:
     :undoc-members:
     :show-inheritance:

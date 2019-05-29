@@ -7,7 +7,7 @@ Create the manager like so, passing the api client, symbol and an optional callb
 
 .. code:: python
 
-    from binance.depthcache import DepthCacheManager
+    from bitrue.depthcache import DepthCacheManager
     dcm = DepthCacheManager(client, 'BNBBTC', callback=process_depth)
 
 The callback function receives the current `DepthCache` object which allows access to a pre-sorted
@@ -22,17 +22,17 @@ The socket connection will stay open receiving updates to be replayed once the f
 Share a Socket Manager
 ----------------------
 
-Here dcm1 and dcm2 share the same instance of BinanceSocketManager
+Here dcm1 and dcm2 share the same instance of BitrueSocketManager
 
 .. code:: python
 
-    from binance.websockets import BinanceSocketManager
-    from binance.depthcache import DepthCacheManager
-    bm = BinanceSocketManager(client)
+    from bitrue.websockets import BitrueSocketManager
+    from bitrue.depthcache import DepthCacheManager
+    bm = BitrueSocketManager(client)
     dcm1 = DepthCacheManager(client, 'BNBBTC', callback=process_depth1, bm=bm)
     dcm2 = DepthCacheManager(client, 'ETHBTC', callback=process_depth2, bm=bm)
 
-Because they both share the same BinanceSocketManager calling close can close both message streams.
+Because they both share the same BitrueSocketManager calling close can close both message streams.
 
 .. code:: python
 

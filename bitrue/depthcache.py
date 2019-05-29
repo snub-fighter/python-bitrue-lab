@@ -3,7 +3,7 @@
 from operator import itemgetter
 import time
 
-from .websockets import BinanceSocketManager
+from .websockets import BitrueSocketManager
 
 
 class DepthCache(object):
@@ -124,8 +124,8 @@ class DepthCacheManager(object):
     def __init__(self, client, symbol, callback=None, refresh_interval=_default_refresh, bm=None, limit=500):
         """Initialise the DepthCacheManager
 
-        :param client: Binance API client
-        :type client: binance.Client
+        :param client: Bitrue API client
+        :type client: Bitrue.Client
         :param symbol: Symbol to create depth cache for
         :type symbol: string
         :param callback: Optional function to receive depth cache updates
@@ -186,7 +186,7 @@ class DepthCacheManager(object):
         :return:
         """
         if self._bm is None:
-            self._bm = BinanceSocketManager(self._client)
+            self._bm = BitrueSocketManager(self._client)
 
         self._conn_key = self._bm.start_depth_socket(self._symbol, self._depth_event)
         if not self._bm.is_alive():

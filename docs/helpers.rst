@@ -1,6 +1,6 @@
 Helper Functions
 ================
 
-.. autoclass:: binance.helpers
+.. autoclass:: bitrue.helpers
     :members: date_to_milliseconds, interval_to_milliseconds
     :noindex:

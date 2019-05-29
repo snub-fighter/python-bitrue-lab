@@ -1,14 +1,14 @@
 # coding=utf-8
 
 
-class BinanceAPIException(Exception):
+class BitrueAPIException(Exception):
 
     def __init__(self, response):
         self.code = 0
         try:
             json_res = response.json()
         except ValueError:
-            self.message = 'Invalid JSON error message from Binance: {}'.format(response.text)
+            self.message = 'Invalid JSON error message from Bitrue: {}'.format(response.text)
         else:
             self.code = json_res['code']
             self.message = json_res['msg']
@@ -20,64 +20,64 @@ class BinanceAPIException(Exception):
         return 'APIError(code=%s): %s' % (self.code, self.message)
 
 
-class BinanceRequestException(Exception):
+class BitrueRequestException(Exception):
     def __init__(self, message):
         self.message = message
 
     def __str__(self):
-        return 'BinanceRequestException: %s' % self.message
+        return 'BitrueRequestException: %s' % self.message
 
 
-class BinanceOrderException(Exception):
+class BitrueOrderException(Exception):
 
     def __init__(self, code, message):
         self.code = code
         self.message = message
 
     def __str__(self):
-        return 'BinanceOrderException(code=%s): %s' % (self.code, self.message)
+        return 'BitrueOrderException(code=%s): %s' % (self.code, self.message)
 
 
-class BinanceOrderMinAmountException(BinanceOrderException):
+class BitrueOrderMinAmountException(BitrueOrderException):
 
     def __init__(self, value):
         message = "Amount must be a multiple of %s" % value
-        super(BinanceOrderMinAmountException, self).__init__(-1013, message)
+        super(BitrueOrderMinAmountException, self).__init__(-1013, message)
 
 
-class BinanceOrderMinPriceException(BinanceOrderException):
+class BitrueOrderMinPriceException(BitrueOrderException):
 
     def __init__(self, value):
         message = "Price must be at least %s" % value
-        super(BinanceOrderMinPriceException, self).__init__(-1013, message)
+        super(BitrueOrderMinPriceException, self).__init__(-1013, message)
 
 
-class BinanceOrderMinTotalException(BinanceOrderException):
+class BitrueOrderMinTotalException(BitrueOrderException):
 
     def __init__(self, value):
         message = "Total must be at least %s" % value
-        super(BinanceOrderMinTotalException, self).__init__(-1013, message)
+        super(BitrueOrderMinTotalException, self).__init__(-1013, message)
 
 
-class BinanceOrderUnknownSymbolException(BinanceOrderException):
+class BitrueOrderUnknownSymbolException(BitrueOrderException):
 
     def __init__(self, value):
         message = "Unknown symbol %s" % value
-        super(BinanceOrderUnknownSymbolException, self).__init__(-1013, message)
+        super(BitrueOrderUnknownSymbolException, self).__init__(-1013, message)
 
 
-class BinanceOrderInactiveSymbolException(BinanceOrderException):
+class BitrueOrderInactiveSymbolException(BitrueOrderException):
 
     def __init__(self, value):
         message = "Attempting to trade an inactive symbol %s" % value
-        super(BinanceOrderInactiveSymbolException, self).__init__(-1013, message)
+        super(BitrueOrderInactiveSymbolException, self).__init__(-1013, message)
 
 
-class BinanceWithdrawException(Exception):
+class BitrueWithdrawException(Exception):
     def __init__(self, message):
         if message == u'参数异常':
             message = 'Withdraw to this address through the website first'
         self.message = message
 
     def __str__(self):
-        return 'BinanceWithdrawException: %s' % self.message
+        return 'BitrueWithdrawException: %s' % self.message

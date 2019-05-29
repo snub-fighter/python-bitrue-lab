@@ -1,4 +1,4 @@
-.. python-binance documentation master file, created by
+.. python-bitrue documentation master file, created by
    sphinx-quickstart on Thu Sep 21 20:24:54 2017.
 
 .. include:: ../README.rst
@@ -22,7 +22,7 @@ Contents
    faqs
    changelog
 
-   binance
+   bitrue
 
 Index
 ==================

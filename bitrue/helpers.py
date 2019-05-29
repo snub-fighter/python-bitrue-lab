@@ -29,9 +29,9 @@ def date_to_milliseconds(date_str):
 
 
 def interval_to_milliseconds(interval):
-    """Convert a Binance interval string to milliseconds
+    """Convert a Bitrue interval string to milliseconds
 
-    :param interval: Binance interval string, e.g.: 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w
+    :param interval: Bitrue interval string, e.g.: 1m, 5m, 15m, 30m, 1h, 1d, 1w, 1m
     :type interval: str
 
     :return:

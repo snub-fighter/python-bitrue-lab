@@ -1,7 +1,7 @@
 Websockets
 ==========
 
-Sockets are handled through a Socket Manager `BinanceSocketManager <binance.html#binance.websockets.BinanceSocketManager>`_.
+Sockets are handled through a Socket Manager `BitrueSocketManager <bitrue.html#bitrue.websockets.BitrueSocketManager>`_.
 
 Multiple socket connections can be made through the manager.
 
@@ -10,7 +10,7 @@ and there can be both a BNBBTC Depth and a BNBBTC Trade socket open at once.
 
 When creating socket connections a callback function is passed which receives the messages.
 
-Messages are received as dictionary objects relating to the message formats defined in the `Binance WebSocket API documentation <https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md>`_.
+Messages are received as dictionary objects relating to the message formats defined in the `Future Bitrue websocket`
 
 Websockets are setup to reconnect with a maximum of 5 retries.
 
@@ -21,8 +21,8 @@ Create the manager like so, passing the API client.
 
 .. code:: python
 
-    from binance.websockets import BinanceSocketManager
-    bm = BinanceSocketManager(client)
+    from bitrue.websockets import BitrueSocketManager
+    bm = BitrueSocketManager(client)
     # start any sockets here, i.e a trade socket
     conn_key = bm.start_trade_socket('BNBBTC', process_message)
     # then start the socket manager
@@ -42,7 +42,7 @@ Set a custom timeout for the websocket connection
 .. code:: python
 
     # set a timeout of 60 seconds
-    bm = BinanceSocketManager(client, user_timeout=60)
+    bm = BitrueSocketManager(client, user_timeout=60)
 
 
 Websocket Errors
@@ -65,7 +65,7 @@ If the websocket is disconnected and is unable to reconnect a message is sent to
             # process message normally
 
 
-`Multiplex Socket <binance.html#binance.websockets.BinanceSocketManager.start_multiplex_socket>`_
+`Multiplex Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_multiplex_socket>`_
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Create a socket combining multiple streams.
@@ -74,7 +74,7 @@ These streams can include the depth, kline, ticker and trade streams but not the
 
 Symbols in socket name must be lowercase i.e bnbbtc@aggTrade, neobtc@ticker
 
-See the `Binance Websocket Streams API documentation <https://github.com/binance-exchange/binance-official-api-docs/blob/master/web-socket-streams.md>`_ for details on socket names.
+See the `Bitrue Websocket Streams API documentation <https://github.com/bitrue-exchange/bitrue-official-api-docs/blob/master/web-socket-streams.md>`_ for details on socket names.
 
 .. code:: python
 
@@ -84,7 +84,7 @@ See the `Binance Websocket Streams API documentation <https://github.com/binance
     # pass a list of stream names
     conn_key = bm.start_multiplex_socket(['bnbbtc@aggTrade', 'neobtc@ticker'], process_m_message)
 
-`Depth Socket <binance.html#binance.websockets.BinanceSocketManager.start_depth_socket>`_
+`Depth Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_depth_socket>`_
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Depth sockets have an optional depth parameter to receive partial book rather than a diff response.
@@ -97,10 +97,10 @@ Valid depth values are 5, 10 and 20 and `defined as enums <enums.html>`_.
     diff_key = bm.start_depth_socket('BNBBTC', process_message)
 
     # partial book response
-    partial_key = bm.start_depth_socket('BNBBTC', process_message, depth=BinanceSocketManager.WEBSOCKET_DEPTH_5)
+    partial_key = bm.start_depth_socket('BNBBTC', process_message, depth=BitrueSocketManager.WEBSOCKET_DEPTH_5)
 
 
-`Kline Socket <binance.html#binance.websockets.BinanceSocketManager.start_kline_socket>`_
+`Kline Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_kline_socket>`_
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Kline sockets have an optional interval parameter. By default this is set to 1 minute.
@@ -108,11 +108,11 @@ Valid interval values are `defined as enums <enums.html>`_.
 
 .. code:: python
 
-    from binance.enums import *
+    from bitrue.enums import *
     conn_key = bm.start_kline_socket('BNBBTC', process_message, interval=KLINE_INTERVAL_30MINUTE)
 
 
-`Aggregated Trade Socket <binance.html#binance.websockets.BinanceSocketManager.start_aggtrade_socket>`_
+`Aggregated Trade Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_aggtrade_socket>`_
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code:: python
@@ -120,28 +120,28 @@ Valid interval values are `defined as enums <enums.html>`_.
     conn_key = bm.start_aggtrade_socket('BNBBTC', process_message)
 
 
-`Trade Socket <binance.html#binance.websockets.BinanceSocketManager.start_trade_socket>`_
+`Trade Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_trade_socket>`_
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code:: python
 
     conn_key = bm.start_trade_socket('BNBBTC', process_message)
 
-`Symbol Ticker Socket <binance.html#binance.websockets.BinanceSocketManager.start_symbol_ticker_socket>`_
+`Symbol Ticker Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_symbol_ticker_socket>`_
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code:: python
 
     conn_key = bm.start_symbol_ticker_socket('BNBBTC', process_message)
 
-`Ticker Socket <binance.html#binance.websockets.BinanceSocketManager.start_ticker_socket>`_
+`Ticker Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_ticker_socket>`_
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code:: python
 
     conn_key = bm.start_ticker_socket(process_message)
 
-`Mini Ticker Socket <binance.html#binance.websockets.BinanceSocketManager.start_miniticker_socket>`_
+`Mini Ticker Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_miniticker_socket>`_
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code:: python
@@ -153,7 +153,7 @@ Valid interval values are `defined as enums <enums.html>`_.
     # set as 5000 to receive updates every 5 seconds
     conn_key = bm.start_miniticker_socket(process_message, 5000)
 
-`User Socket <binance.html#binance.websockets.BinanceSocketManager.start_user_socket>`_
+`User Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.start_user_socket>`_
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 This watches for 3 different user events
@@ -169,7 +169,7 @@ The Manager handles keeping the socket alive.
     bm.start_user_socket(process_message)
 
 
-`Close a Socket <binance.html#binance.websockets.BinanceSocketManager.stop_socket>`_
+`Close a Socket <bitrue.html#bitrue.websockets.BitrueSocketManager.stop_socket>`_
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 To close an individual socket call the `stop_socket` function.
@@ -186,7 +186,7 @@ To stop all sockets and end the manager call `close` after doing this a `start` 
 
     bm.close()
 
-.. image:: https://analytics-pixel.appspot.com/UA-111417213-1/github/python-binance/docs/websockets?pixel
+.. image:: https://analytics-pixel.appspot.com/UA-111417213-1/github/python-bitrue/docs/websockets?pixel
 
 
 Close and exit program
