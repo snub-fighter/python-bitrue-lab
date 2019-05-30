@@ -4,7 +4,7 @@ import pytz
 import json
 
 from datetime import datetime
-from binance.client import Client
+from bitrue.client import Client
 
 
 def date_to_milliseconds(date_str):
@@ -30,9 +30,9 @@ def date_to_milliseconds(date_str):
 
 
 def interval_to_milliseconds(interval):
-    """Convert a Binance interval string to milliseconds
+    """Convert a Bitrue interval string to milliseconds
 
-    :param interval: Binance interval string 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w
+    :param interval: Bitrue interval string 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w
     :type interval: str
 
     :return:
@@ -58,7 +58,7 @@ def interval_to_milliseconds(interval):
 
 
 def get_historical_klines(symbol, interval, start_str, end_str=None):
-    """Get Historical Klines from Binance
+    """Get Historical Klines from Bitrue
 
     See dateparse docs for valid start and end string formats http://dateparser.readthedocs.io/en/latest/
 
@@ -76,7 +76,7 @@ def get_historical_klines(symbol, interval, start_str, end_str=None):
     :return: list of OHLCV values
 
     """
-    # create the Binance client, no need for api key
+    # create the Bitrue client, no need for api key
     client = Client("", "")
 
     # init our list
@@ -97,7 +97,7 @@ def get_historical_klines(symbol, interval, start_str, end_str=None):
         end_ts = date_to_milliseconds(end_str)
 
     idx = 0
-    # it can be difficult to know when a symbol was listed on Binance so allow start time to be before list date
+    # it can be difficult to know when a symbol was listed on Bitrue so allow start time to be before list date
     symbol_existed = False
     while True:
         # fetch the klines from start_ts up to max 500 entries or the end_ts if set
@@ -109,7 +109,7 @@ def get_historical_klines(symbol, interval, start_str, end_str=None):
             endTime=end_ts
         )
 
-        # handle the case where our start date is before the symbol pair listed on Binance
+        # handle the case where our start date is before the symbol pair listed on Bitrue
         if not symbol_existed and len(temp_data):
             symbol_existed = True
 
@@ -145,7 +145,7 @@ klines = get_historical_klines(symbol, interval, start, end)
 
 # open a file with filename including symbol, interval and start and end converted to milliseconds
 with open(
-    "Binance_{}_{}_{}-{}.json".format(
+    "Bitrue_{}_{}_{}-{}.json".format(
         symbol,
         interval,
         date_to_milliseconds(start),

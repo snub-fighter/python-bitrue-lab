@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# python-binance documentation build configuration file, created by
+# python-bitrue documentation build configuration file, created by
 # sphinx-quickstart on Thu Sep 21 20:24:54 2017.
 #
 # This file is execfile()d with the current directory set to its
@@ -49,7 +49,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'python-binance'
+project = 'python-bitrue'
 copyright = '2017, Sam McHardy'
 author = 'Sam McHardy'
 
@@ -119,7 +119,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'python-binancedoc'
+htmlhelp_basename = 'python-bitruedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -146,7 +146,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'python-binance.tex', 'python-binance Documentation',
+    (master_doc, 'python-bitrue.tex', 'python-bitrue Documentation',
      'Sam McHardy', 'manual'),
 ]
 
@@ -156,7 +156,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'python-binance', 'python-binance Documentation',
+    (master_doc, 'python-bitrue', 'python-bitrue Documentation',
      [author], 1)
 ]
 
@@ -167,8 +167,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'python-binance', 'python-binance Documentation',
-     author, 'python-binance', 'One line description of project.',
+    (master_doc, 'python-bitrue', 'python-bitrue Documentation',
+     author, 'python-bitrue', 'One line description of project.',
      'Miscellaneous'),
 ]
 
