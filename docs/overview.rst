@@ -4,7 +4,10 @@ Getting Started
 Installation
 ------------
 
-``python-bitrue`` is available on `PYPI <https://pypi.python.org/pypi/python-bitrue/>`_.
+PIP Method
+----------
+
+``python-bitrue`` is pending available on `PYPI <https://pypi.python.org/pypi/python-bitrue/>`_.
 Install with ``pip``:
 
 .. code:: bash
@@ -16,6 +19,9 @@ Install with ``pip``:
 If you see errors building Twisted indication Microsoft Visual C++ is required you may need to install the Visual C++ Build Tools
 refer to the `Python Wiki on Widows Compilers <https://wiki.python.org/moin/WindowsCompilers>`_ for your relevant version.
 
+Manual Method
+-------------
+
 Register on Bitrue
 -------------------
 
@@ -24,7 +30,7 @@ Firstly `register an account with Bitrue <https://www.bitrue.com/activity/task/t
 Generate an API Key
 -------------------
 
-To use signed account methods you are required to `create an API Key  <https://www.bitrue.com/userCenter/createApi.html>`_.
+To use signed account methods you are required to `create an API Key  <https://www.bitrue.com/account/api>`_.
 
 Initialise the client
 ---------------------

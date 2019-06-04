@@ -109,7 +109,7 @@ Quick Start
     depth = client.get_order_book(symbol='BNBBTC')
 
     # place a test market buy order, to place an actual order use the create_order function
-    order = client.create_test_order(
+    order = client.create_order(
         symbol='XRPUSDT',
         side=Client.SIDE_BUY,
         type=Client.ORDER_TYPE_MARKET,

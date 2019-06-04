@@ -1,5 +1,9 @@
+from pprint import pprint
 # coding=utf-8
-
+import configparser
+from tabulate import tabulate
+import multiprocessing as mp
+from selenium import webdriver
 import hashlib
 import hmac
 import requests
@@ -7,7 +11,12 @@ import time
 from operator import itemgetter
 from .helpers import date_to_milliseconds, interval_to_milliseconds
 from .exceptions import BitrueAPIException, BitrueRequestException, BitrueWithdrawException
-
+import os
+import atexit
+from multiprocessing import Queue
+from apscheduler.schedulers.background import BackgroundScheduler
+from selenium.webdriver.firefox.options import Options
+q = Queue()
 
 class Client(object):
 
@@ -73,17 +82,23 @@ class Client(object):
     AGG_BUYER_MAKES = 'm'
     AGG_BEST_MATCH = 'M'
 
-    def __init__(self, api_key, api_secret, requests_params=None):
-        """Bitrue API Client constructor
-
-        :param api_key: Api Key
-        :type api_key: str.
-        :param api_secret: Api Secret
-        :type api_secret: str.
-        :param requests_params: optional - Dictionary of requests params to use for all calls
-        :type requests_params: dict.
+    def __init__(self, api_key, api_secret, requests_params=None, coil_enabled=True):
+        atexit.register(self._close_coil)
 
         """
+        Bitrue API Client constructor
+
+                :param api_key: Api Key
+                :type api_key: str.
+                :param api_secret: Api Secret
+                :type api_secret: str.
+                :param requests_params: optional - Dictionary of requests params to use for all calls
+                :type requests_params: dict.
+                :param coil_enabled: optional - Brings up firefox browser (headless) for streaming payments.
+                :type coil_enabled: str
+
+        """
+
 
         self.API_KEY = api_key
         self.API_SECRET = api_secret
@@ -92,6 +107,16 @@ class Client(object):
 
         # init DNS and SSL cert
         self.ping()
+        if coil_enabled:
+            # self.open_coil()
+            self.p1_coil = mp.Process(target=self.open_coil, args=(q,))
+            self.p1_coil.daemon = True
+            self.p1_coil.start()
+
+            # threading.Thread(target=self.open_coil())
+        else:
+            print('Consider enabling coil when using pyton-bitrue as a contribution')
+
 
     def _init_session(self):
 
@@ -100,6 +125,11 @@ class Client(object):
                                     'User-Agent': 'bitrue/python',
                                 'X-MBX-APIKEY': self.API_KEY})
         return session
+
+    def _close_coil(self):
+        print('Closing Coil Enabled Browser')
+        q.put('goodbye')
+        # return self.p1_coil.join()
 
     def _create_api_uri(self, path, signed=True, version=PUBLIC_API_VERSION):
         v = self.PRIVATE_API_VERSION if signed else version
@@ -117,6 +147,32 @@ class Client(object):
         query_string = '&'.join(["{}={}".format(d[0], d[1]) for d in ordered_data])
         m = hmac.new(self.API_SECRET.encode('utf-8'), query_string.encode('utf-8'), hashlib.sha256)
         return m.hexdigest()
+    def get_coil_url(self):
+        self.driver.get(self.coilurl)
+
+    def open_coil(self, q, headless=True):
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(self.get_coil_url, 'interval',seconds=300)
+        scheduler.start()
+
+        mozilla_profile = os.path.join(os.getenv('APPDATA'), r'Mozilla\Firefox')
+        mozilla_profile_ini = os.path.join(mozilla_profile, r'profiles.ini')
+        profile = configparser.ConfigParser()
+        profile.read(mozilla_profile_ini)
+
+        options = Options()
+        options.headless = headless
+        data_path = os.path.normpath(os.path.join(mozilla_profile, profile.get('Profile0', 'Path')))
+        self.driver = webdriver.Firefox(options=options, firefox_profile=data_path, executable_path="coil/geckodriver.exe")
+        self.coilurl = 'https://coil.com/p/Hodor/Xumm/GcD8MEL4B'
+        self.driver.get(self.coilurl)
+        print("Headless Firefox Initialized")
+
+        while True:
+            if q.empty():
+                pass
+            else:
+                self.driver.close()
 
     def _order_params(self, data):
         """Convert params to list with signature as last element
@@ -203,6 +259,10 @@ class Client(object):
         except ValueError:
 
             raise BitrueRequestException('Invalid Response: %s' % response.text)
+    def _format_print(self, dataset):
+        header = dataset[0].keys()
+        rows = [x.values() for x in dataset]
+        return tabulate(rows, header)
 
     def _get(self, path, signed=False, version=PUBLIC_API_VERSION, **kwargs):
         return self._request_api('get', path, signed, version, **kwargs)
